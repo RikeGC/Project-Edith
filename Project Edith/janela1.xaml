@@ -1,0 +1,458 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Project_Edith"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" x:Class="Project_Edith.janela1"
+        mc:Ignorable="d"
+        Title="Estoque D'aTia" Height="555" Width="850" MaxWidth="850" MaxHeight="555" MinWidth="850" MinHeight="555" ContentRendered="Window_ContentRendered" Background="White">
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="Imagens/11.jpg"/>
+        </Grid.Background>
+        <TabControl HorizontalAlignment="Left" Height="495" Margin="10,10,10,10" VerticalAlignment="Top" Width="812">
+            <TabControl.Background>
+                <SolidColorBrush Color="Yellow" Opacity="0.5"/>
+            </TabControl.Background>
+            <TabControl.Resources>
+                <Style TargetType="{x:Type TabItem}">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type TabItem}">
+                                <Grid>
+                                    <Border Name="Border" Margin="0,0,0,0">
+                                        <ContentPresenter x:Name="ContentSite"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        ContentSource="Header"
+                                        Margin="10,2"/>
+                                    </Border>
+                                </Grid>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter Property="Panel.ZIndex" Value="100"/>
+                                        <Setter TargetName="Border" Property="Background" Value="green" />
+                                    </Trigger>
+                                    <Trigger Property="IsSelected" Value="False">
+                                        <Setter TargetName="Border" Property="Background" Value="#FFE8D93F"/>
+                                        <Setter Property="Foreground" Value="green"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </TabControl.Resources>
+            <TabItem Header="Registro de &#xA;Movimentação" Height="50" Width="100" FontSize="11">
+                <TabItem.Background>
+                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                        <GradientStop Color="#FFF0F0F0" Offset="0"/>
+                        <GradientStop Color="#FFE8D93F" Offset="1"/>
+                    </LinearGradientBrush>
+                </TabItem.Background>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="149*"/>
+                        <ColumnDefinition Width="657*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.Background>
+                        <SolidColorBrush Color="Green" Opacity="0.3"/>
+                    </Grid.Background>
+                    <DataGrid x:Name="dgRegi" HorizontalAlignment="Left" Height="360" Margin="207,66,0,0" VerticalAlignment="Top" Width="440"  EnableRowVirtualization="False" CanUserAddRows="False" Grid.Column="1">
+                        <DataGrid.Background>
+                            <SolidColorBrush Color="#FFFAFAFA" Opacity="0.9"/>
+                        </DataGrid.Background>
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Header="Alterar">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button x:Name="btnAlterarRegistro" Click="btnAlterarRegistro_Click" Padding="0,0,0,0">
+                                            <materialDesign:PackIcon Kind="SyncAlert" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                        </Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Excluir" x:Name="ExcluirRegistro">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button x:Name="btnExcluirRegistro" Click="btnExcluirRegistro_Click" Padding="0,0,0,0">
+                                            <materialDesign:PackIcon Kind="Close" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                        </Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Button x:Name="btnPesqRegis" Content="Pesquisar" HorizontalAlignment="Left" Margin="547,28,0,0" VerticalAlignment="Top" Width="100" Height="33"  Click="btnPesqRegis_Click" Background="#FFE8D93F" Foreground="#DD39C740" BorderBrush="#FFE8D93F" Grid.Column="1"/>
+                    <TextBox x:Name="pesqRegi" HorizontalAlignment="Left" Height="23" Margin="207,38,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="335" Grid.Column="1"/>
+                    <Label Content="Consulta de Registro de Movimentação" HorizontalAlignment="Left" Margin="207,7,0,0" VerticalAlignment="Top" FontWeight="Bold" Grid.Column="1"/>
+                    <Rectangle HorizontalAlignment="Left" Height="416" Margin="10,10,0,0" Stroke="Black" VerticalAlignment="Top" Width="341" Grid.ColumnSpan="2">
+                        <Rectangle.Fill>
+                            <SolidColorBrush Color="White" Opacity="0.9"/>
+                        </Rectangle.Fill>
+                    </Rectangle>
+
+                    <Label Content="Adicionar Movimentação de Estoque" HorizontalAlignment="Left" Margin="20,19,0,0" VerticalAlignment="Top" Width="321" FontWeight="Bold" Grid.ColumnSpan="2"/>
+
+                    <Label Content="Status: " HorizontalAlignment="Left" Margin="20,85,0,0" VerticalAlignment="Top"/>
+                    <ComboBox x:Name="statusRegi" HorizontalAlignment="Left" Margin="103,85,0,0" VerticalAlignment="Top" Width="238" Height="26" Grid.ColumnSpan="2">
+                        <ComboBoxItem Content="Recebido"/>
+                        <ComboBoxItem Content="Retirado"/>
+                    </ComboBox>
+                    <Label Content="Marca: " HorizontalAlignment="Left" Margin="20,120,0,0" VerticalAlignment="Top"/>
+                    <ComboBox x:Name="marcaRegi" HorizontalAlignment="Left" Margin="103,120,0,0" VerticalAlignment="Top" Width="238" Height="26" ItemsSource="{Binding Marca}" SelectedItem="{Binding Id}" DisplayMemberPath="Nome"  DropDownClosed="MarcaRegi_DropDownClosed" Grid.ColumnSpan="2">
+                        <!--<TextBlock Text="{Binding cod_marca}" Width="70"/>-->
+                    </ComboBox>
+                    <Label Content="Fornecedor: " HorizontalAlignment="Left" Margin="20,190,0,0" VerticalAlignment="Top"/>
+                    <ComboBox x:Name="fornecedorRegi" HorizontalAlignment="Left" Margin="103,190,0,0" VerticalAlignment="Top" Width="238" Height="26" ItemsSource="{Binding Fornecedor}"  DisplayMemberPath="Nome" Grid.ColumnSpan="2" >
+
+                    </ComboBox>
+                    <Label Content="Produto: " HorizontalAlignment="Left" Margin="20,155,0,0" VerticalAlignment="Top"/>
+                    <ComboBox x:Name="produtoRegi" HorizontalAlignment="Left" Margin="103,155,0,0" VerticalAlignment="Top" Width="238" Height="26" ItemsSource="{Binding Marca}"  DisplayMemberPath="Nome" DropDownClosed="ProdutoRegi_DropDownClosed" Grid.ColumnSpan="2" />
+
+                    <Label Content="Quantidade: " HorizontalAlignment="Left" Margin="20,225,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="quantidadeRegi" HorizontalAlignment="Left" Height="26" Margin="103,225,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="238" Grid.ColumnSpan="2"/>
+                    <Label Content="Data: " HorizontalAlignment="Left" Margin="20,260,0,0" VerticalAlignment="Top"/>
+                    <DatePicker x:Name="dataRegi"  HorizontalAlignment="Left" Margin="103,260,0,0" VerticalAlignment="Top" Width="238" Height="26" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="2">
+                        <DatePicker.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="0.033"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </DatePicker.RenderTransform>
+                    </DatePicker>
+
+                    <Button x:Name="btnRegi" Content="Novo Registro" HorizontalAlignment="Left" Margin="62,375,0,0" VerticalAlignment="Top" Width="130" Height="26" FontWeight="Bold" Click="BtnRegi_Click" Background="#FFE8D93F" Foreground="#DD39C740" BorderBrush="#FFE8D93F" Grid.Column="1"/>
+                    <Button x:Name="btnReport" Content="Gera Relatório" HorizontalAlignment="Left" Margin="20,375,0,0" VerticalAlignment="Top" Width="130" Height="26" FontWeight="Bold" Click="btnReport_Click" Background="#FFE8D93F" Foreground="#DD39C740" BorderBrush="#FFE8D93F" Grid.ColumnSpan="2"/>
+                    <Button x:Name="btnAtualizar2" HorizontalAlignment="Left" Margin="17,375,0,0" VerticalAlignment="Top" Width="30" Height="26" Foreground="#DD39C740" Padding="0,0,0,0" FontWeight="Bold" Background="#FFE8D93F" BorderBrush="#FFE8D93F" Click="BtnAtualizar_Click" Grid.Column="1">
+                        <materialDesign:PackIcon Kind="Sync" Height="22" Width="22"/>
+                    </Button>
+
+                </Grid>
+            </TabItem>
+            <TabItem Header="Produtos" Height="50" Width="100">
+                <TabItem.Background>
+                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                        <GradientStop Color="#FFF0F0F0" Offset="0"/>
+                        <GradientStop Color="#FFE8D93F" Offset="1"/>
+                    </LinearGradientBrush>
+                </TabItem.Background>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="51*"/>
+                        <ColumnDefinition Width="755*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.Background>
+                        <SolidColorBrush Color="Green" Opacity="0.3"/>
+                    </Grid.Background>
+                    <DataGrid x:Name="dgProd" HorizontalAlignment="Left" Height="360" Margin="305,66,0,0" VerticalAlignment="Top" Width="440" EnableRowVirtualization="False" CanUserAddRows="False" Grid.Column="1">
+                        <DataGrid.Background>
+                            <SolidColorBrush Color="#FFFAFAFA" Opacity="0.9"/>
+                        </DataGrid.Background>
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Header="Alterar">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button x:Name="btnAlterarProduto" Click="btnAlterarProduto_Click" Padding="0,0,0,0">
+                                            <materialDesign:PackIcon Kind="SyncAlert" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                        </Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Excluir" x:Name="ExcluirProdutos">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button x:Name="btnExcluirProduto" Click="btnExcluirProduto_Click" Padding="0,0,0,0">
+                                            <materialDesign:PackIcon Kind="Close" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                        </Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Button x:Name="btnPesqProd" Content="Pesquisar" HorizontalAlignment="Left" Margin="645,28,0,0" VerticalAlignment="Top" Width="100" Height="33"  Click="btnPesqProd_Click" Foreground="#DD39C740" Background="#FFE8D93F" BorderBrush="#FFE8D93F" Grid.Column="1"/>
+                    <TextBox x:Name="pesqProd" HorizontalAlignment="Left" Height="23" Margin="305,38,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="335" Grid.Column="1"/>
+                    <Label Content="Pesquisa de Produtos" HorizontalAlignment="Left" Margin="305,7,0,0" VerticalAlignment="Top" FontWeight="Bold" Grid.Column="1"/>
+                    <Rectangle HorizontalAlignment="Left" Height="416" Margin="10,10,0,0" Stroke="Black" VerticalAlignment="Top" Width="341" Grid.ColumnSpan="2">
+                        <Rectangle.Fill>
+                            <SolidColorBrush Color="White" Opacity="0.9"/>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                    <Label Content="Adicionar Produto" HorizontalAlignment="Left" Margin="20,19,0,0" VerticalAlignment="Top" Width="321" FontWeight="Bold" Grid.ColumnSpan="2"/>
+
+                    <Label Content="Nome: " HorizontalAlignment="Left" Margin="20,120,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+                    <TextBox x:Name="nomeProd" HorizontalAlignment="Left" Height="26" Margin="52,120,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="238" MaxLength="30" Grid.Column="1"/>
+                    <Label Content="Marca: " HorizontalAlignment="Left" Margin="20,155,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+                    <ComboBox x:Name="marcaProd" HorizontalAlignment="Left" Margin="52,155,0,0" VerticalAlignment="Top" Width="238" Height="26" ItemsSource="{Binding Marca}" SelectedItem="{Binding Id}" DisplayMemberPath="Nome" Grid.Column="1">
+                        <!--<ComboBoxItem Content="AC"/>-->
+                    </ComboBox>
+                    <Label Content="Fornecedor: " HorizontalAlignment="Left" Margin="20,190,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+                    <ComboBox x:Name="fornecedorProd" HorizontalAlignment="Left" Margin="52,190,0,0" VerticalAlignment="Top" Width="238" Height="26" ItemsSource="{Binding Fornecedor}" SelectedItem="{Binding Id}"  DisplayMemberPath="Nome" Grid.Column="1" >
+                        <!--<ComboBoxItem Content="AC"/>-->
+                    </ComboBox>
+                    <Label Content="Quantidade: " HorizontalAlignment="Left" Margin="20,225,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+                    <TextBox x:Name="qtdProd" HorizontalAlignment="Left" Height="26" Margin="52,225,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="238" Grid.Column="1"/>
+
+                    <Button x:Name="Prod" Content="Novo Produto" HorizontalAlignment="Left" Margin="165,375,0,0" VerticalAlignment="Top" Width="125" Height="26" FontWeight="Bold" Click="Prod_Click" Foreground="#DD39C740" Background="#FFE8D93F" BorderBrush="#FFE8D93F" Grid.Column="1"/>
+
+                    <Button x:Name="btnAtualizar" HorizontalAlignment="Left" Margin="115,375,0,0" VerticalAlignment="Top" Width="30" Height="26" Foreground="#DD39C740" Padding="0,0,0,0" FontWeight="Bold" Background="#FFE8D93F" BorderBrush="#FFE8D93F" Click="BtnAtualizar_Click" Grid.Column="1">
+                        <materialDesign:PackIcon Kind="Sync" Height="22" Width="22"/>
+                    </Button>
+
+                </Grid>
+            </TabItem>
+            <TabItem Header="Marcas" Height="50" Width="100" >
+                <TabItem.Background>
+                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                        <GradientStop Color="#FFF0F0F0" Offset="0"/>
+                        <GradientStop Color="#FFE8D93F" Offset="1"/>
+                    </LinearGradientBrush>
+                </TabItem.Background>
+                <Grid>
+                    <Grid.Background>
+                        <SolidColorBrush Color="Green" Opacity="0.3"/>
+                    </Grid.Background>
+                    <DataGrid x:Name="dgMarca" HorizontalAlignment="Left" Height="360" Margin="356,66,0,0" VerticalAlignment="Top" Width="440"  EnableRowVirtualization="False" CanUserAddRows="False">
+                        <DataGrid.Background>
+                            <SolidColorBrush Color="#FFFAFAFA" Opacity="0.9"/>
+                        </DataGrid.Background>
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Header="Alterar">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button x:Name="btnAlterarMarca" Click="btnAlterarMarca_Click" Padding="0,0,0,0">
+                                            <materialDesign:PackIcon Kind="SyncAlert" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                        </Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Excluir" x:Name="ExcluirMarcas">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button  x:Name="btnExcluirMarca" Click="btnExcluirMarca_Click" Padding="0,0,0,0">
+                                            <materialDesign:PackIcon Kind="Close" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                        </Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Button x:Name="btnPesqMarca"  Content="Pesquisar" HorizontalAlignment="Left" Margin="696,28,0,0" VerticalAlignment="Top" Width="100" Height="33" Click="btnPesqMarca_Click" Foreground="#DD39C740" Background="#FFE8D93F" BorderBrush="#FFE8D93F"/>
+                    <TextBox x:Name="pesqMarca" HorizontalAlignment="Left" Height="23" Margin="356,38,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="335"/>
+                    <Label Content="Pesquisa de Marcas" HorizontalAlignment="Left" Margin="356,7,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+                    <Rectangle HorizontalAlignment="Left" Height="416" Margin="10,10,0,0" Stroke="Black" VerticalAlignment="Top" Width="341">
+                        <Rectangle.Fill>
+                            <SolidColorBrush Color="White" Opacity="0.9"/>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                    <Label Content="Adicionar Marca" HorizontalAlignment="Left" Margin="20,19,0,0" VerticalAlignment="Top" Width="321" FontWeight="Bold"/>
+
+                    <Label Content="Nome: " HorizontalAlignment="Left" Margin="20,155,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="nomeMarca" HorizontalAlignment="Left" Height="26" Margin="90,155,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="251" MaxLength="30"/>
+                    <Label Content="Telefone: " HorizontalAlignment="Left" Margin="20,190,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="telefoneMarca" HorizontalAlignment="Left" Height="26" Margin="90,190,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="251" MaxLength="30"/>
+
+                    <Button x:Name="btnMarca" Content="Nova Marca" HorizontalAlignment="Left" Margin="221,375,0,0" VerticalAlignment="Top" Width="120" Height="26" FontWeight="Bold" Click="BtnMarca_Click" Foreground="#DD39C740" Background="#FFE8D93F" BorderBrush="#FFE8D93F"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Fornecedores" Height="50" Width="100" >
+                <TabItem.Background>
+                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                        <GradientStop Color="#FFF0F0F0" Offset="0"/>
+                        <GradientStop Color="#FFE8D93F" Offset="1"/>
+                    </LinearGradientBrush>
+                </TabItem.Background>
+                <Grid>
+                    <Grid.Background>
+                        <SolidColorBrush Color="Green" Opacity="0.3"/>
+                    </Grid.Background>
+                    <DataGrid x:Name="dgForn" HorizontalAlignment="Left" Height="360" Margin="356,66,0,0" VerticalAlignment="Top" Width="440"  EnableRowVirtualization="False" CanUserAddRows="False">
+                        <DataGrid.Background>
+                            <SolidColorBrush Color="#FFFAFAFA" Opacity="0.9"/>
+                        </DataGrid.Background>
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Header="Alterar">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button x:Name="btnAlterarFornecedor" Click="btnAlterarFornecedor_Click" Padding="0,0,0,0">
+                                            <materialDesign:PackIcon Kind="SyncAlert" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                        </Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Excluir" x:Name="ExcluirFornecedor">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button x:Name="btnExcluirFornecedor" Click="btnExcluirFornecedor_Click" Padding="0,0,0,0">
+                                            <materialDesign:PackIcon Kind="Close" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                        </Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Button x:Name="btnPesqForn" Content="Pesquisar" HorizontalAlignment="Left" Margin="696,28,0,0" VerticalAlignment="Top" Width="100" Height="33"  Click="btnPesqForn_Click" Foreground="#DD39C740" Background="#FFE8D93F" BorderBrush="#FFE8D93F"/>
+                    <TextBox x:Name="pesqForn" HorizontalAlignment="Left" Height="23" Margin="356,38,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="335"/>
+                    <Label Content="Pesquisa de Fornecedores" HorizontalAlignment="Left" Margin="356,7,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+                    <Rectangle HorizontalAlignment="Left" Height="416" Margin="10,10,0,0" Stroke="Black" VerticalAlignment="Top" Width="341">
+                        <Rectangle.Fill>
+                            <SolidColorBrush Color="White" Opacity="0.9"/>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                    <Label Content="Adicionar Fornecedor" HorizontalAlignment="Left" Margin="20,19,0,0" VerticalAlignment="Top" Width="321" FontWeight="Bold"/>
+
+                    <Label Content="Nome: " HorizontalAlignment="Left" Margin="20,85,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="nomeForn" HorizontalAlignment="Left" Height="26" Margin="90,85,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="251" MaxLength="40"/>
+                    <Label Content="Telefone: " HorizontalAlignment="Left" Margin="20,120,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="telefoneForn" HorizontalAlignment="Left" Height="26" Margin="90,120,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="251" MaxLength="30"/>
+                    <Label Content="CNPJ: " HorizontalAlignment="Left" Margin="20,155,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="cnpjForn" HorizontalAlignment="Left" Height="26" Margin="90,155,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="251" MaxLength="14"/>
+                    <Label Content="Endereço: " HorizontalAlignment="Left" Margin="20,190,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="enderecoForn" HorizontalAlignment="Left" Height="26" Margin="90,190,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="251" MaxLength="50"/>
+                    <Label Content="Bairro: " HorizontalAlignment="Left" Margin="20,225,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="bairroForn" HorizontalAlignment="Left" Height="26" Margin="90,225,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="251" MaxLength="20"/>
+                    <Label Content="Cidade: " HorizontalAlignment="Left" Margin="20,260,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="cidadeForn" HorizontalAlignment="Left" Height="26" Margin="90,260,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="251" MaxLength="20"/>
+                    <Label Content="UF: " HorizontalAlignment="Left" Margin="20,295,0,0" VerticalAlignment="Top"/>
+                    <ComboBox x:Name="ufForn" HorizontalAlignment="Left" Margin="90,295,0,0" VerticalAlignment="Top" Width="105" Height="26">
+                        <ComboBoxItem Content="AC"/>
+                        <ComboBoxItem Content="AL"/>
+                        <ComboBoxItem Content="AP"/>
+                        <ComboBoxItem Content="AM"/>
+                        <ComboBoxItem Content="BA"/>
+                        <ComboBoxItem Content="CE"/>
+                        <ComboBoxItem Content="DF"/>
+                        <ComboBoxItem Content="ES"/>
+                        <ComboBoxItem Content="GO"/>
+                        <ComboBoxItem Content="MA"/>
+                        <ComboBoxItem Content="MT"/>
+                        <ComboBoxItem Content="MS"/>
+                        <ComboBoxItem Content="MG"/>
+                        <ComboBoxItem Content="PA"/>
+                        <ComboBoxItem Content="PB"/>
+                        <ComboBoxItem Content="PR"/>
+                        <ComboBoxItem Content="PE"/>
+                        <ComboBoxItem Content="PI"/>
+                        <ComboBoxItem Content="RJ"/>
+                        <ComboBoxItem Content="RN"/>
+                        <ComboBoxItem Content="RS"/>
+                        <ComboBoxItem Content="RO"/>
+                        <ComboBoxItem Content="RR"/>
+                        <ComboBoxItem Content="SC"/>
+                        <ComboBoxItem Content="SP"/>
+                        <ComboBoxItem Content="SE"/>
+                        <ComboBoxItem Content="TO"/>
+                    </ComboBox>
+                    <Label Content="CEP: " HorizontalAlignment="Left" Margin="200,295,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="cepForn" HorizontalAlignment="Left" Height="26" Margin="241,295,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="100" MaxLength="10"/>
+
+                    <Button x:Name="btnForn" Content="Novo Fornecedor" HorizontalAlignment="Left" Margin="191,375,0,0" VerticalAlignment="Top" Width="150" Height="26" FontWeight="Bold" Click="BtnForn_Click" Foreground="#DD39C740" Background="#FFE8D93F" BorderBrush="#FFE8D93F"/>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="JanelaFuncionarios" Header="Funcionarios" Height="50" Width="100">
+                <TabItem.Background>
+                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                        <GradientStop Color="#FFF0F0F0" Offset="0"/>
+                        <GradientStop Color="#FFE8D93F" Offset="1"/>
+                    </LinearGradientBrush>
+                </TabItem.Background>
+                <Grid>
+                    <Grid.Background>
+                        <SolidColorBrush Color="Green" Opacity="0.3"/>
+                    </Grid.Background>
+                    <DataGrid x:Name="dgFunc" HorizontalAlignment="Left" Height="360" Margin="356,66,0,0" VerticalAlignment="Top" Width="440" EnableRowVirtualization="False" CanUserAddRows="False">
+                        <DataGrid.Background>
+                            <SolidColorBrush Color="#FFFAFAFA" Opacity="0.9"/>
+                        </DataGrid.Background>
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Header="Alterar">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button x:Name="btnAlterarFuncionario" Click="btnAlterarFuncionario_Click" Padding="0,0,0,0">
+                                            <materialDesign:PackIcon Kind="SyncAlert" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                        </Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Excluir">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button x:Name="btnExcluirFuncionario" Click="btnExcluirFuncionario_Click" Padding="0,0,0,0">
+                                            <materialDesign:PackIcon Kind="Close" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                        </Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Button x:Name="btnPesqFunc" Content="Pesquisar" HorizontalAlignment="Left" Margin="696,28,0,0" VerticalAlignment="Top" Width="100" Height="33" Click="btnPesqFunc_Click" Foreground="#DD39C740" Background="#FFE8D93F" BorderBrush="#FFE8D93F"/>
+                    <TextBox x:Name="pesqFunc" HorizontalAlignment="Left" Height="23" Margin="356,38,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="335"/>
+                    <Label Content="Pesquisa de Funcionarios" HorizontalAlignment="Left" Margin="356,7,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+                    <Rectangle HorizontalAlignment="Left" Height="416" Margin="10,10,0,0" Stroke="Black" VerticalAlignment="Top" Width="341">
+                        <Rectangle.Fill>
+                            <SolidColorBrush Color="White" Opacity="0.9"/>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                    <Label Content="Adicionar Funcionario" HorizontalAlignment="Left" Margin="20,19,0,0" VerticalAlignment="Top" Width="321" FontWeight="Bold"/>
+                    <Label Content="Nome: " HorizontalAlignment="Left" Margin="20,50,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="nomeFunc" HorizontalAlignment="Left" Height="26" Margin="90,50,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="251" MaxLength="40"/>
+                    <Label Content="Email: " HorizontalAlignment="Left" Margin="20,85,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="emailFunc" HorizontalAlignment="Left" Height="26" Margin="90,85,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="251" MaxLength="30"/>
+                    <Label Content="Senha: " HorizontalAlignment="Left" Margin="20,120,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="senhaFunc" HorizontalAlignment="Left" Height="26" Margin="90,120,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="251" MaxLength="15"/>
+                    <Label Content="CPF: " HorizontalAlignment="Left" Margin="20,155,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="cpfFunc" HorizontalAlignment="Left" Height="26" Margin="90,155,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="251" MaxLength="11"/>
+                    <Label Content="Endereço: " HorizontalAlignment="Left" Margin="20,190,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="enderecoFunc" HorizontalAlignment="Left" Height="26" Margin="90,190,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="251" MaxLength="50"/>
+                    <Label Content="Bairro: " HorizontalAlignment="Left" Margin="20,225,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="bairroFunc" HorizontalAlignment="Left" Height="26" Margin="90,225,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="251" MaxLength="20"/>
+                    <Label Content="Cidade: " HorizontalAlignment="Left" Margin="20,260,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="cidadeFunc" HorizontalAlignment="Left" Height="26" Margin="90,260,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="251" MaxLength="20"/>
+                    <Label Content="UF: " HorizontalAlignment="Left" Margin="20,295,0,0" VerticalAlignment="Top"/>
+                    <ComboBox x:Name="ufFunc" HorizontalAlignment="Left" Margin="90,295,0,0" VerticalAlignment="Top" Width="105" Height="26">
+                        <ComboBoxItem Content="AC"/>
+                        <ComboBoxItem Content="AL"/>
+                        <ComboBoxItem Content="AP"/>
+                        <ComboBoxItem Content="AM"/>
+                        <ComboBoxItem Content="BA"/>
+                        <ComboBoxItem Content="CE"/>
+                        <ComboBoxItem Content="DF"/>
+                        <ComboBoxItem Content="ES"/>
+                        <ComboBoxItem Content="GO"/>
+                        <ComboBoxItem Content="MA"/>
+                        <ComboBoxItem Content="MT"/>
+                        <ComboBoxItem Content="MS"/>
+                        <ComboBoxItem Content="MG"/>
+                        <ComboBoxItem Content="PA"/>
+                        <ComboBoxItem Content="PB"/>
+                        <ComboBoxItem Content="PR"/>
+                        <ComboBoxItem Content="PE"/>
+                        <ComboBoxItem Content="PI"/>
+                        <ComboBoxItem Content="RJ"/>
+                        <ComboBoxItem Content="RN"/>
+                        <ComboBoxItem Content="RS"/>
+                        <ComboBoxItem Content="RO"/>
+                        <ComboBoxItem Content="RR"/>
+                        <ComboBoxItem Content="SC"/>
+                        <ComboBoxItem Content="SP"/>
+                        <ComboBoxItem Content="SE"/>
+                        <ComboBoxItem Content="TO"/>
+                    </ComboBox>
+                    <Label Content="CEP: " HorizontalAlignment="Left" Margin="200,295,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="cepFunc" HorizontalAlignment="Left" Height="26" Margin="241,295,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="100" MaxLength="10"/>
+                    <Label Content="Função: " HorizontalAlignment="Left" Margin="20,330,0,0" VerticalAlignment="Top"/>
+                    <ComboBox x:Name="funcaoFunc" HorizontalAlignment="Left" Margin="90,330,0,0" VerticalAlignment="Top" Width="251" Height="26">
+                        <ComboBoxItem Content="Administrador"/>
+                        <ComboBoxItem Content="Usuario"/>
+                    </ComboBox>
+                    <Button x:Name="btnFunc" Content="Novo Funcionario" HorizontalAlignment="Left" Margin="191,375,0,0" VerticalAlignment="Top" Width="150" Height="26" FontWeight="Bold" Click="BtnFunc_Click" Foreground="#DD39C740" Background="#FFE8D93F" BorderBrush="#FFE8D93F"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
+        <Label x:Name="lblLogadoNome" Content="Label" HorizontalAlignment="Left" Margin="530,20,0,0" VerticalAlignment="Top" Width="290" Height="30" FontSize="18" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" Foreground="#DD39C740"/>
+        <!--<Label x:Name="lblLogadoID" Content="Label" HorizontalAlignment="Left" Margin="632,35,0,0" VerticalAlignment="Top" Width="150" Height="20" FontSize="9"/>-->
+    </Grid>
+</Window>
